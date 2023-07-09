@@ -1,0 +1,20 @@
+<div id="container">
+    <div id="side-container">
+    </div>
+    <div id="menu-container">
+        <h2>Основная таблица</h2>
+        <p>Для выгрузки файла отфильтруйте список должностей, галочками отметье нужные должности или нажмите “выбрать все”, нажмите “выгрузить должности с требованиями”</p>
+        <div [formGroup]="inputForm">
+            <tui-text-area
+                formControlName="inputValue"
+                class="field-filter field-medium"
+                [expandable]="true"
+                [maxLength]="30"
+            >  
+                <tui-svg src="tuiIconSearch"></tui-svg>
+                Type a text 
+            </tui-text-area>
+        </div>
+        
+    </div>
+</div>

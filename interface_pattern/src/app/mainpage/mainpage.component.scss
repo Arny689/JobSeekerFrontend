@@ -1,0 +1,74 @@
+#container {
+    display: flex;
+    height: 100vh;
+}
+
+#side-container {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+#menu-container {
+    flex-grow: 1;
+    padding-top: 40px;
+    padding-left: 30px;
+}
+
+// h2 {
+
+// }
+
+p {
+    margin-top: 20px;
+}
+
+// .t-content{
+//     height: 20px;
+// }
+
+.field-medium {
+    min-height: 1.5rem;
+}
+
+.field-filter {
+    margin-top: 20px;
+}
+
+// .svg.t-svg.ng-star-inserted {
+//     margin-top: 100px;
+// }
+
+#header {
+    background-color: black;
+    display: block;
+    border-bottom: 7px solid gray;
+    border-radius: 5px;
+    width: auto;
+    height: 10vh;
+    color: beige;
+    text-align: center;
+    line-height: 10vh;
+}
+
+#header:hover {
+    color:bisque;
+}
+
+#body {
+    background-color:darkgray;
+    margin-top: 10px;
+}
+
+hr {
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+.inline {
+    border: 1px solid black;
+    padding: 10px 0;
+    width: 403px;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+}
