@@ -1,6 +1,8 @@
 #container {
     display: flex;
     height: 100vh;
+    border-radius: 10px;
+    background-color: white;
 }
 
 #side-container {
@@ -12,19 +14,12 @@
     flex-grow: 1;
     padding-top: 40px;
     padding-left: 30px;
+    margin-right: 150px;
 }
-
-// h2 {
-
-// }
 
 p {
     margin-top: 20px;
 }
-
-// .t-content{
-//     height: 20px;
-// }
 
 .field-medium {
     min-height: 1.5rem;
@@ -32,43 +27,82 @@ p {
 
 .field-filter {
     margin-top: 20px;
+    width: 400px;
 }
 
-// .svg.t-svg.ng-star-inserted {
-//     margin-top: 100px;
-// }
-
-#header {
-    background-color: black;
-    display: block;
-    border-bottom: 7px solid gray;
-    border-radius: 5px;
-    width: auto;
-    height: 10vh;
-    color: beige;
-    text-align: center;
-    line-height: 10vh;
+.btn {
+    margin-top: 20px;
+    &-my {
+        margin-top: 20px;
+        width: 150px;
+        height: 30px;
+        background-color: #526ed3;
+        border-radius: 10px;
+        border-width: 0;
+        color: white;
+        font-size: small;
+    }
 }
 
-#header:hover {
-    color:bisque;
+.btn-container {
+    display: flex;
+    justify-content: space-between;
 }
 
-#body {
-    background-color:darkgray;
-    margin-top: 10px;
+.table-container {
+    margin-top: 40px;
+    width: 100%;
 }
 
-hr {
-    margin-top: 10px;
-    border: 1px solid black;
+.post-table {
+    margin-top: 40px;
 }
 
-.inline {
-    border: 1px solid black;
-    padding: 10px 0;
-    width: 403px;
-    display: inline-block;
-    font-size: 16px;
-    text-align: center;
+td,
+th {
+    white-space: nowrap;
+    border-color: transparent;
+    border-right-color: var(--tui-base-04);
+ 
+    &:last-child {
+        border-right-color: transparent;
+    }
+}
+ 
+tbody {
+    border-color: transparent;
+}
+ 
+tr:nth-child(even) td {
+    background: var(--tui-base-02);
+}
+ 
+.alive,
+.deceased {
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+ 
+    &:before {
+        content: '';
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+        background: var(--tui-base-04);
+    }
+}
+ 
+.alive:before {
+    background: var(--tui-success-fill);
+}
+ 
+.remove {
+    // .transition(opacity);
+    // opacity: 0;
+ 
+    tr:hover &,
+    tr:focus-within & {
+        opacity: 1;
+    }
 }

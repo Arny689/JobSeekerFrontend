@@ -41,6 +41,6 @@ export class AuthenticationComponent {
     if (!(value.email || value.password)) return;
     const isAuthorized = await this.tokenService.authorize(value.email, value.password)
     if (!isAuthorized) return;
-    this.routes.navigateByUrl('mainpage')
+    this.routes.navigateByUrl('')
   }
 }

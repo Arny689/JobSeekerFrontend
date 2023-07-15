@@ -1,6 +1,7 @@
 <div id="container">
-    <div id="side-container">
-    </div>
+    <!-- <div id="side-container">
+
+    </div> -->
     <div id="menu-container">
         <h2>Основная таблица</h2>
         <p>Для выгрузки файла отфильтруйте список должностей, галочками отметье нужные должности или нажмите “выбрать все”, нажмите “выгрузить должности с требованиями”</p>
@@ -10,11 +11,157 @@
                 class="field-filter field-medium"
                 [expandable]="true"
                 [maxLength]="30"
+                [(ngModel)]="searchText"
             >  
                 <tui-svg src="tuiIconSearch"></tui-svg>
                 Type a text 
             </tui-text-area>
         </div>
+
+        <div class="btn-container">
+            <button
+            tuiButton
+            type="button"
+            appearance="primary"
+            class="tui-space_right-3 tui-space_bottom-3 btn"
+            >
+            Сортировка
+            </button>
+            
+            <!-- <button type="button" class="btn-my">
+                Выгрузить должности
+            </button> -->
+                
+            <button
+
+            tuiButton
+            type="button"
+            appearance="primary"
+            class="tui-space_right-3 tui-space_bottom-3 btn"
+            (click)="exportUsers()"
+            >
+            Выгрузить должности
+            </button>
+        </div>
         
+            <table
+            tuiTable
+            [columns]="columns"
+            class="table-container "
+            #tableOfUsers
+            id="table"
+            >
+            <thead>
+                <tr tuiThGroup>
+                    <th
+                        *tuiHead="'Id'"
+                        tuiTh
+                        (click)="sortData()"
+                    >
+                        Id
+                    </th>
+                    <th
+                        *tuiHead="'Role'"
+                        tuiTh
+                        (click)="sortData()"
+                    >
+                        Role
+                    </th>
+                    <th
+                        *tuiHead="'Email'"
+                        tuiTh
+                        (click)="sortData()"
+                    >
+                        Email
+                    </th>
+                    <th
+                        *tuiHead="'Password'"
+                        tuiTh
+                        [sorter]="null"
+                        (click)="sortData()"
+                    >
+                        Password
+                    </th>
+                    <th
+                        *tuiHead="'Actions'"
+                        tuiTh
+                        [sorter]="null"
+                    ></th>
+                </tr>
+            </thead>
+            <tbody
+                *tuiLet="user | tuiTableSort as sortedUsers"
+                tuiTbody
+                [data]="sortedUsers"
+            >
+                <tr
+                    *ngFor="let item of sortedUsers | search: searchText | paginate: {itemsPerPage: 5, currentPage: p}; let index = index"
+                    tuiTr
+                >
+                    <td
+                        *tuiCell="'Id'"
+                        tuiTd
+                    >
+                        {{ index + 1 }}. {{ item.id }}
+                    </td>
+                    <td
+                        *tuiCell="'Role'"
+                        tuiTd
+                    >   
+                        <div [class]="item.roles">{{ item.roles }}</div>
+                        <!-- <a
+                            *ngIf="item.role"
+                            tuiLink
+                            [href]="'mailto:' + item.role"
+                        >
+                            {{ item.role }}
+                        </a> -->
+                    </td>
+                    <td
+                        *tuiCell="'Email'"
+                        tuiTd
+                    >
+                        <div [class]="item.email">{{ item.email }}</div>
+                    </td>
+                    <td
+                        *tuiCell="'Password'"
+                        tuiTd
+                    >   
+                        <div [class]="item.password">{{ item.password }}</div>
+                        <!-- <tui-tag
+                            *ngFor="let tag of item.password"
+                            class="tui-space_right-1"
+                            [value]="tag"
+                            [autoColor]="true"
+                        ></tui-tag> -->
+                    </td>
+                    <td
+                        *tuiCell="'Actions'"
+                        tuiTd
+                    >   
+                        <!-- <form [formGroup]="testValue">
+                            <tui-checkbox
+                            formControlName="testValue1"
+                            class="tui-space_bottom-3"
+                            ></tui-checkbox>
+                        </form> -->
+                        <button
+                            tuiIconButton
+                            appearance="flat"
+                            size="s"
+                            icon="tuiIconTrash"
+                            title="Remove"
+                            shape="rounded"
+                            type="button"
+                            class="remove"
+                        ></button>
+                        <form>
+                            <input type="checkbox" name="data">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </table>    
     </div>
 </div>

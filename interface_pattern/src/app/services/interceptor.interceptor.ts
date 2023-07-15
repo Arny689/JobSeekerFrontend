@@ -22,9 +22,10 @@ export class InterceptorInterceptor implements HttpInterceptor {
   private handleAuthError(err: any) {
     console.log("Invalid token")
     if(err.status === 401) {
-    this.tokenService.clearToken()
-    this.routes.navigateByUrl('login')
+      this.tokenService.clearToken()
     }
+    this.routes.navigateByUrl('login')
+    console.log("ajajaja")
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
