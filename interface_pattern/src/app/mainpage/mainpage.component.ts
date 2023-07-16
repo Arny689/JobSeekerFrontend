@@ -5,15 +5,8 @@ import { Observable, map } from 'rxjs';
 import * as XLSX from 'xlsx';
 import { HandletokenService } from '../services/handletoken.service';
 import { Router } from '@angular/router';
-// import axios from 'axios';
-// import { UsersDto } from '../dto/users.dto';
-
-interface User {
-  readonly id: string;
-  readonly roles: string[];
-  readonly email: string;
-  readonly password: string;
-}
+import { PostsDto } from '../dto/posts.dto';
+import { UsersDto } from '../dto/users.dto';
 
 @Component({
   selector: 'app-mainpage',
@@ -27,9 +20,11 @@ export class MainpageComponent implements OnInit, OnDestroy {
     private tokenService: HandletokenService,
     private routes: Router) {}
 
-  user: User[] = []
+  user: UsersDto[] = []
 
-  data$ = new Observable<User>
+  post: PostsDto[] = []
+
+  // data$ = new Observable<User>
 
   outputRoute: string = this.routes.url
 
@@ -63,8 +58,33 @@ export class MainpageComponent implements OnInit, OnDestroy {
     })
   }
 
+  private showPosts(): void {
+    this.userService.getPosts()
+    .pipe(map(response => {
+      if(response) {
+        return Object.values(response)
+      }
+      return []
+    })).subscribe({
+      next: _ => 
+      { 
+        this.post = _
+        console.log(this.post);
+        
+      }
+    })
+  }
+
+  remove(item: PostsDto): void {
+    this.post = this.post.filter(post => post !== item);
+  }
+  delete(id: string, item: PostsDto): void {
+    this.remove(item)
+    this.userService.removePost(id).subscribe()
+  }
+
   ngOnInit(): void {
-    this.showUsers()
+    this.showPosts()
   }
 
   ngOnDestroy(): void {
@@ -77,7 +97,7 @@ export class MainpageComponent implements OnInit, OnDestroy {
 
   
 
-  readonly columns = ['Id', 'Role', 'Email', 'Password', 'Actions']
+  readonly columns = ['id', 'name', 'postName', 'structuralDivision', 'balanceUnit', 'manageLevel', 'grade', 'areOfWork', 'actions']
 
   searchText: string = ''
 

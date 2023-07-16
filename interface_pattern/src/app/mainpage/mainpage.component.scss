@@ -3,6 +3,7 @@
     height: 100vh;
     border-radius: 10px;
     background-color: white;
+    overflow-y:auto;
 }
 
 #side-container {
@@ -60,7 +61,7 @@ p {
 
 td,
 th {
-    white-space: nowrap;
+    white-space: normal;
     border-color: transparent;
     border-right-color: var(--tui-base-04);
  

@@ -4,7 +4,7 @@
     </div> -->
     <div id="menu-container">
         <h2>Основная таблица</h2>
-        <p>Для выгрузки файла отфильтруйте список должностей, галочками отметье нужные должности или нажмите “выбрать все”, нажмите “выгрузить должности с требованиями”</p>
+        <p>Для выгрузки файла отфильтруйте список должностей, нажмите “выгрузить должности с требованиями”</p>
         <div [formGroup]="inputForm">
             <tui-text-area
                 formControlName="inputValue"
@@ -14,7 +14,7 @@
                 [(ngModel)]="searchText"
             >  
                 <tui-svg src="tuiIconSearch"></tui-svg>
-                Type a text 
+                Введите текст
             </tui-text-area>
         </div>
 
@@ -54,61 +54,96 @@
             <thead>
                 <tr tuiThGroup>
                     <th
-                        *tuiHead="'Id'"
+                        *tuiHead="'id'"
                         tuiTh
                         (click)="sortData()"
                     >
                         Id
                     </th>
                     <th
-                        *tuiHead="'Role'"
+                        *tuiHead="'name'"
                         tuiTh
                         (click)="sortData()"
                     >
-                        Role
+                        Наименование должности
                     </th>
                     <th
-                        *tuiHead="'Email'"
+                        *tuiHead="'postName'"
                         tuiTh
                         (click)="sortData()"
                     >
-                        Email
+                        Категория должности
                     </th>
                     <th
-                        *tuiHead="'Password'"
+                        *tuiHead="'structuralDivision'"
                         tuiTh
                         [sorter]="null"
                         (click)="sortData()"
                     >
-                        Password
+                       Структурное подразделение
                     </th>
                     <th
-                        *tuiHead="'Actions'"
+                        *tuiHead="'balanceUnit'"
                         tuiTh
                         [sorter]="null"
-                    ></th>
+                        (click)="sortData()"
+                    >
+                       Балансовая единица
+                    </th>
+                    <th
+                        *tuiHead="'manageLevel'"
+                        tuiTh
+                        [sorter]="null"
+                        (click)="sortData()"
+                    >
+                       Уровень управления
+                    </th>
+                    <th
+                        *tuiHead="'grade'"
+                        tuiTh
+                        [sorter]="null"
+                        (click)="sortData()"
+                    >
+                       Грейд
+                    </th>
+                    <th
+                    *tuiHead="'areOfWork'"
+                    tuiTh
+                    [sorter]="null"
+                    (click)="sortData()"
+                    >
+                    Область деятельности
+                    </th>
+                    <th
+                    *tuiHead="'actions'"
+                    tuiTh
+                    [sorter]="null"
+                    (click)="sortData()"
+                    >
+                    Действия
+                    </th>
                 </tr>
             </thead>
             <tbody
-                *tuiLet="user | tuiTableSort as sortedUsers"
+                *tuiLet="post | tuiTableSort as sortedPosts"
                 tuiTbody
-                [data]="sortedUsers"
+                [data]="sortedPosts"
             >
                 <tr
-                    *ngFor="let item of sortedUsers | search: searchText | paginate: {itemsPerPage: 5, currentPage: p}; let index = index"
+                    *ngFor="let item of sortedPosts | search: searchText | paginate: {itemsPerPage: 5, currentPage: p}; let index = index"
                     tuiTr
                 >
                     <td
-                        *tuiCell="'Id'"
+                        *tuiCell="'id'"
                         tuiTd
                     >
                         {{ index + 1 }}. {{ item.id }}
                     </td>
                     <td
-                        *tuiCell="'Role'"
+                        *tuiCell="'name'"
                         tuiTd
                     >   
-                        <div [class]="item.roles">{{ item.roles }}</div>
+                        <div [class]="item.name">{{ item.name }}</div>
                         <!-- <a
                             *ngIf="item.role"
                             tuiLink
@@ -118,16 +153,16 @@
                         </a> -->
                     </td>
                     <td
-                        *tuiCell="'Email'"
+                        *tuiCell="'postName'"
                         tuiTd
                     >
-                        <div [class]="item.email">{{ item.email }}</div>
+                        <div [class]="item.postName">{{ item.postName }}</div>
                     </td>
                     <td
-                        *tuiCell="'Password'"
+                        *tuiCell="'structuralDivision'"
                         tuiTd
                     >   
-                        <div [class]="item.password">{{ item.password }}</div>
+                        <div [class]="item.infOrganization.structuralDivision">{{ item.infOrganization.structuralDivision}}</div>
                         <!-- <tui-tag
                             *ngFor="let tag of item.password"
                             class="tui-space_right-1"
@@ -136,7 +171,31 @@
                         ></tui-tag> -->
                     </td>
                     <td
-                        *tuiCell="'Actions'"
+                    *tuiCell="'balanceUnit'"
+                    tuiTd
+                >   
+                    <div [class]="item.infOrganization.balanceUnit">{{ item.infOrganization.balanceUnit}}</div>
+                    </td>
+                    <td
+                    *tuiCell="'manageLevel'"
+                    tuiTd
+                >   
+                    <div [class]="item.infOrganization.manageLevel">{{ item.infOrganization.manageLevel}}</div>
+                    </td>
+                    <td
+                    *tuiCell="'grade'"
+                    tuiTd
+                >   
+                    <div [class]="item.additionalInf.grade">{{ item.additionalInf.grade}}</div>
+                    </td>
+                    <td
+                    *tuiCell="'areOfWork'"
+                    tuiTd
+                >   
+                    <div [class]="item.additionalInf.areOfWork">{{ item.additionalInf.areOfWork}}</div>
+                    </td>
+                    <td
+                        *tuiCell="'actions'"
                         tuiTd
                     >   
                         <!-- <form [formGroup]="testValue">
@@ -154,6 +213,7 @@
                             shape="rounded"
                             type="button"
                             class="remove"
+                            (click)="delete(item.id, item)"
                         ></button>
                         <form>
                             <input type="checkbox" name="data">

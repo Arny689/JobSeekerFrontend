@@ -7,7 +7,7 @@
     flex-direction: column;
     transition: .4s;
     &.opened {
-        width: 250px;
+        width: 300px;
     }
 }
 
@@ -34,9 +34,18 @@
 .btn-exit {
     margin-top: 500px;
     height: 40px;
-    background-color: rgba(255, 255, 255, 0.6);
+    color: rgb(157, 152, 152);
     border-radius: 10px;
     border-width: 0;
+}
+
+.btn-exit:hover {
+    color: rgb(131, 127, 127);
+    transform: scale(1.25) perspective(1px);
+}
+
+.btn-menu {
+    margin-right: 30px;
 }
 
 .side-container-close {
